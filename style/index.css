@@ -1,0 +1,48 @@
+#slider {
+    margin-top: 40px;
+    width: 100%;
+    height: 350px;
+    margin-bottom: 50px;
+    border: 1px solid blue;
+
+}
+
+#container-card {
+    margin-top: 4%;
+    margin-left: 7%;
+    margin-right: 9%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+
+#container-card>div {
+    width: 550px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    height: 300px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    overflow: hidden;
+    position: relative;
+  
+
+}
+
+#container-card>div a img {
+    width: 100%;
+    object-fit: cover;
+    margin:0;
+    height: 100%;
+}
+
+#strip-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+#strip-container a img {
+    width: 100%;
+    height: 300px;
+}

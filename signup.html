@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+
+    </title>
+    <meta name="description" content="">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/headerFooter.css">
+    <style>
+        #form {
+            margin-left: 40%;
+            margin-top: 6%;
+            margin-bottom: 50px;
+            background-color: rgb(128, 184, 184);
+            width: 320px;
+            height: 400px;
+            padding-top: 10px;
+            color: white;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        }
+
+
+        #form input {
+
+            padding: 10px;
+            margin-top: 5%;
+            width: 250px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+
+        }
+
+        #form select {
+            margin-top: 10px;
+            width: 275px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+        }
+
+        #form button {
+            margin-top: 10px;
+            width: 275px;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            background-color: rgb(12, 138, 138);
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header"></div>
+        <div id="nav"></div>
+
+
+        <form id="form">
+            <h2>SignUp</h2>
+            <input id="username" type="text" placeholder="enter your name" value="Ashu">
+            <input id="email" type="email" placeholder="enter your email">
+            <input id="password" type="password" placeholder="enter your password" value="2897924">
+            <input id="contact" type="number" placeholder="enter your contact" value="82317">
+            <select name="" id="gender">
+                <option value="">select-gender...</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+            <button id="submitBtn">submit</button>
+            <!-- <input  type="submit" value="submit"> -->
+        </form>
+
+        <div id="footer"></div>
+
+    </div>
+    <script type="module">
+        import { baseUrl } from "./script/baseUrl.js"
+        console.log(baseUrl, "urlllllllllll")
+
+
+        let form = document.getElementById("form")
+        let submitButton = document.getElementById("submitBtn")
+        submitButton.addEventListener(("click"), function (event) {
+            event.preventDefault()
+            let name = form.username.value
+            let email = form.email.value
+            let password = form.password.value
+            let contact = form.contact.value
+            let gender = form.gender.value
+            let userData = { name, email, password, contact, gender }
+            console.log("user ka data", userData)
+            checkData(`${baseUrl}/user`, userData, email)
+        })
+
+        getData(`${baseUrl}/user`)
+
+        function getData(url) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    console.log(result, "datatat")
+                    return result
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+
+        // function for checkData  from json server
+        function checkData(url, obj, email) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    let checkEmailPresent = result.filter((e) => e.email == email)
+                    if (checkEmailPresent.length != 0) {
+                        alert("User already register")
+                        window.location.href = `login.html`
+                    } else {
+                        postUserData(url, obj)
+                        alert("Signup sucessfully")
+                        console.log(result, "dt")
+                    }
+
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+
+        // // function for post data in json Server
+
+        function postUserData(url, userObj) {
+            fetch(url, {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(userObj)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("result Data", result)
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+        }
+
+    </script>
+    <!-- <script src="./script/signUp.js" type="module" ></script> -->
+    <script src="./script/header.js"></script>
+    <script src="./script/footer.js"></script>
+</body>
+
+</html>
