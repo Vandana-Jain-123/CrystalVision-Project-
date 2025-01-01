@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+
+    </title>
+    <meta name="description" content="">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/headerFooter.css">
+    <style>
+        #offer {
+            height: 100px;
+            margin-top: 20px;
+            border: 1px solid green;
+            margin-bottom: 20px;
+        }
+
+        #card-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding-left: 2%;
+            margin-bottom: 30px;
+        }
+
+        #card-container>div {
+            width: 275px;
+            height: 400px;
+            border: 1px solid blue;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            padding-left: 25px;
+            line-height: 0.1;
+            margin: 0;
+
+        }
+
+        #card-container>div img {
+            width: 250px;
+            height: 200px;
+            margin-top: 20px;
+        }
+
+        #card-container>div button {
+            width: 100px;
+            height: 30px;
+            background-color: rgb(12, 138, 138);
+            color: white;
+            border-radius: 20px;
+            border: none;
+        }
+
+        #icon {
+            color: rgb(12, 138, 138);
+            font-size: 20px;
+        }
+
+        #starIcon {
+            color: green;
+            font-size: 15px;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between
+        }
+
+        .card-ratingStar {
+            display: flex;
+
+        }
+
+        .heart-Button {
+            display: flex;
+            justify-content: space-between
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="offer">
+            <h1>discount offer</h1>
+        </div>
+        <div id="card-container">
+
+        </div>
+        <div id="footer"></div>
+
+    </div>
+
+    <script type="module">
+        import { baseUrl } from "./script/baseUrl.js"
+        console.log(baseUrl, "url")
+
+
+        // {
+        //     "id": "14",
+        //         "productName": "Maui Jim Peahi",
+        //             "image": "https://tse1.mm.bing.net/th?id=OIP.27IBr8bzJkioNUmTXHuPQgHaHa&pid=Api",
+        //                 "price": 250,
+        //                     "rating": 4.8,
+        //                         "category": "sunglasses"
+        // }
+        function getContactLensesData(url) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    console.log(result)
+                    showData(result)
+                    return result
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+
+        function showData(array) {
+            let containerCard = document.getElementById("card-container")
+
+            array.forEach((e) => {
+                let card = document.createElement("div")
+                let image = document.createElement("img")
+                image.src = `${e.image}`
+                console.log(image, "img")
+                // <!-- name price -->
+                let details = document.createElement("div");
+                details.className = "card-details";
+                let productName = document.createElement("h4")
+                productName.textContent = `${e.productName}`
+                let price = document.createElement("h3")
+                price.textContent = ` $ ${e.price}`
+                details.append(productName, price)
+
+                let category = document.createElement("h4")
+                category.textContent = `${e.category}`
+
+                // <!-- name price -->   
+                let ratingStar = document.createElement("div");
+                ratingStar.className = "card-ratingStar";
+                let rating = document.createElement("h4")
+                rating.textContent = `${e.rating}`
+                let star = document.createElement("icon")
+                star.innerHTML = `<i id="starIcon"class="fa-solid fa-star"></i>`
+                ratingStar.append(rating, star)
+
+                //heart button 
+                let heartButton = document.createElement("div")
+                heartButton.className = "heart-button"
+                let wishlistButton = document.createElement("icon")
+                wishlistButton.innerHTML = `<i id="icon" class="fa-solid fa-heart"></i>`
+                let addToCartButton = document.createElement("button")
+                addToCartButton.textContent = "AddToCart"
+
+                heartButton.append(wishlistButton, addToCartButton)
+
+                card.append(image, category, details, ratingStar, heartButton)
+                containerCard.append(card)
+            })
+        }
+        getContactLensesData(`${baseUrl}/products?category=sunglasses `)
+
+    </script>
+
+    <script src="./script/header.js"></script>
+    <script src="./script/footer.js"></script>
+
+</body>
+
+</html>

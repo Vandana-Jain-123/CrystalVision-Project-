@@ -84,13 +84,51 @@
         import { baseUrl } from "./script/baseUrl.js"
         console.log(baseUrl, "url")
 
+          let form = document.getElementById("form")
+            let loginButton = document.getElementById("submitBtn")
+            loginButton.addEventListener("click", function (event) {
+                event.preventDefault()
+                let password = form.password.value
+                let email = form.email.value
+                let loginData = { password, email }
+                console.log("loginData", loginData)
+                getData(`${baseUrl}/user`, email)
+            })
+
+
+            function getData(url, email) {
+                fetch(url)
+                    .then((res) => {
+                        return res.json()
+                    })
+                    .then((result) => {
+                        let checkLogin = result.filter((e) => e.email == email)
+                        if (checkLogin.length != 0) {
+                            alert("Login Sucessfully")
+                                form.reset()
+                            window.location.href = ``
+                        }else{
+                               alert("something went wrong try again......")
+                               form.reset()
+                        }
+                        console.log(result, "result")
+
+                        return result
+                    })
+                    .catch((err) => {
+                        alert("something went wrong try again......")
+                        console.log(err, "error")
+                    })
+            }
+
+
 
 
     </script>
 
     <script src="./script/header.js"></script>
     <script src="./script/footer.js"></script>
-    <script src="./script/login.js"></script>
+    <script type="module" src="./script/login.js"></script>
 </body>
 
 </html>

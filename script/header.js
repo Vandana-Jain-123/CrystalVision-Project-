@@ -20,11 +20,11 @@ let  logoPart=`
 `    
   
 let navbar=`
-            <a href="index.html">EyeGlasses</a>
-            <a href="">Screen Glasses</a>
-            <a href="">Kids Glasses</a>
-            <a href="">Contact Lenses</a>
-            <a href="">SunGlasses </a>
+            <a href="eyeGlasses.html">EyeGlasses</a>
+            <a href="screenGlasses.html">Screen Glasses</a>
+            <a href="kidsGlasses.html">Kids Glasses</a>
+            <a href="contactLenses.html">Contact Lenses</a>
+            <a href="sunGlasses.html">SunGlasses </a>
 `
 document.getElementById("header").innerHTML = logoPart
 document.getElementById("nav").innerHTML=navbar

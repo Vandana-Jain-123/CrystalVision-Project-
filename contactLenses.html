@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+
+    </title>
+    <meta name="description" content="">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/headerFooter.css">
+    <style>
+        #offer {
+            height: 100px;
+            margin-top: 20px;
+            border: 1px solid green;
+            margin-bottom: 20px;
+        }
+
+        #card-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        #card-container>div {
+            width: 250px;
+            height: 300px;
+            border: 1px solid blue;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="offer">
+            <h1>discount offer</h1>
+        </div>
+        <div id="card-container">
+            <div>yy</div>
+        </div>
+        <div id="footer"></div>
+
+    </div>
+
+    <script type="module">
+        import { baseUrl } from "./script/baseUrl.js"
+        console.log(baseUrl, "url")
+
+
+    // {
+    //     "id": "14",
+    //         "productName": "Maui Jim Peahi",
+    //             "image": "https://tse1.mm.bing.net/th?id=OIP.27IBr8bzJkioNUmTXHuPQgHaHa&pid=Api",
+    //                 "price": 250,
+    //                     "rating": 4.8,
+    //                         "category": "sunglasses"
+    // }
+        function getContactLensesData(url) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    console.log(result)
+                    return result
+                }).catch((err) => {
+                    console.log("error",err)
+                })
+        }
+
+        function showData(array){
+              array.forEach((e)=>{
+                let 
+
+
+              })
+        }
+    getContactLensesData(`${baseUrl}/products?category=sunglasses `)
+
+    </script>
+
+    <script src="./script/header.js"></script>
+    <script src="./script/footer.js"></script>
+
+</body>
+
+</html>
