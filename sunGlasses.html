@@ -15,40 +15,43 @@
     <link rel="stylesheet" href="./style/headerFooter.css">
     <style>
         #offer {
-            height: 100px;
+            height: 150px;
             margin-top: 20px;
-            border: 1px solid green;
             margin-bottom: 20px;
+        }
+        #offer img{
+width: 100%;
+height: 150px;
         }
 
         #card-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            padding-left: 2%;
+            padding-left: 12px;
             margin-bottom: 30px;
         }
 
         #card-container>div {
             width: 275px;
-            height: 400px;
-            border: 1px solid blue;
+            height: 370px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-            padding-left: 25px;
+            padding-left: 20px;
             line-height: 0.1;
-            margin: 0;
+            margin-bottom: 15px;
 
         }
 
         #card-container>div img {
             width: 250px;
-            height: 200px;
+            height: 180px;
             margin-top: 20px;
         }
 
         #card-container>div button {
             width: 100px;
             height: 30px;
+            margin-left: 50%;
             background-color: rgb(12, 138, 138);
             color: white;
             border-radius: 20px;
@@ -62,32 +65,50 @@
 
         #starIcon {
             color: green;
-            font-size: 15px;
+            margin: 15px 10px;
+
+            font-size: 10px;
         }
 
         .card-details {
             display: flex;
+            margin-right: 30px;
             justify-content: space-between
         }
 
         .card-ratingStar {
             display: flex;
+            width: 80px;
+            height: 5px;
+            padding-bottom: 30px;
+            border-radius: 10px;
+           margin-right: 10px;
+           padding-left: 10px;
+            background-color: rgb(230, 228, 228);
 
         }
 
         .heart-Button {
             display: flex;
-            justify-content: space-between
+            margin-top: 10px;
+         
+
+        }
+        .category{
+            color:grey;
+        }
+        .ratingcount{
+            color: grey;
         }
     </style>
 </head>
 
 <body>
-    <div id="container">
+    <div class="container">
         <div id="header"></div>
         <div id="nav"></div>
         <div id="offer">
-            <h1>discount offer</h1>
+          <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png" alt="offer">
         </div>
         <div id="card-container">
 
@@ -133,35 +154,41 @@
                 // <!-- name price -->
                 let details = document.createElement("div");
                 details.className = "card-details";
-                let productName = document.createElement("h4")
+                let productName = document.createElement("h5")
                 productName.textContent = `${e.productName}`
                 let price = document.createElement("h3")
                 price.textContent = ` $ ${e.price}`
                 details.append(productName, price)
 
                 let category = document.createElement("h4")
+                 category.className = "category"
                 category.textContent = `${e.category}`
 
-                // <!-- name price -->   
+                // <!-- rating icon star -->   
                 let ratingStar = document.createElement("div");
                 ratingStar.className = "card-ratingStar";
                 let rating = document.createElement("h4")
                 rating.textContent = `${e.rating}`
                 let star = document.createElement("icon")
                 star.innerHTML = `<i id="starIcon"class="fa-solid fa-star"></i>`
-                ratingStar.append(rating, star)
+            //    rating count
+                let ratingcount = document.createElement("h4")
+                    ratingcount.className="ratingcount"
+                ratingcount.textContent =Math.floor(Math.random()*100)
+                
+                ratingStar.append(rating, star,  ratingcount)
 
                 //heart button 
                 let heartButton = document.createElement("div")
                 heartButton.className = "heart-button"
                 let wishlistButton = document.createElement("icon")
-                wishlistButton.innerHTML = `<i id="icon" class="fa-solid fa-heart"></i>`
+                wishlistButton.innerHTML = `<i id="icon" class="fa-regular fa-heart"></i>`
                 let addToCartButton = document.createElement("button")
                 addToCartButton.textContent = "AddToCart"
 
                 heartButton.append(wishlistButton, addToCartButton)
 
-                card.append(image, category, details, ratingStar, heartButton)
+                card.append(image, category, ratingStar, details, heartButton)
                 containerCard.append(card)
             })
         }
