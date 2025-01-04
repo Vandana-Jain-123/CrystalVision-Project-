@@ -12,8 +12,8 @@ let  logoPart=`
 <input type="text" placeholder="What are you looking for?..">
 <a href="signup.html"><button>SignUp</button></a>
 <a href="login.html"><button>Login</button></a>
-<a href= ""><i class="fa-regular fa-heart"></i></a>
-<a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+<a href= "wishList.html"><i class="fa-regular fa-heart"></i></a>
+<a href="addToCart.html"><i class="fa-solid fa-cart-shopping"></i></a>
 </div>
 
 

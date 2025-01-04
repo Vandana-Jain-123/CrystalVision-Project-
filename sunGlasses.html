@@ -19,9 +19,10 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
-        #offer img{
-width: 100%;
-height: 150px;
+
+        #offer img {
+            width: 100%;
+            height: 150px;
         }
 
         #card-container {
@@ -55,6 +56,7 @@ height: 150px;
             background-color: rgb(12, 138, 138);
             color: white;
             border-radius: 20px;
+            cursor: pointer;
             border: none;
         }
 
@@ -66,7 +68,7 @@ height: 150px;
         #starIcon {
             color: green;
             margin: 15px 10px;
-
+            cursor: pointer;
             font-size: 10px;
         }
 
@@ -82,8 +84,8 @@ height: 150px;
             height: 5px;
             padding-bottom: 30px;
             border-radius: 10px;
-           margin-right: 10px;
-           padding-left: 10px;
+            margin-right: 10px;
+            padding-left: 10px;
             background-color: rgb(230, 228, 228);
 
         }
@@ -91,14 +93,20 @@ height: 150px;
         .heart-Button {
             display: flex;
             margin-top: 10px;
-         
+
 
         }
-        .category{
-            color:grey;
-        }
-        .ratingcount{
+
+        .category {
             color: grey;
+        }
+
+        .ratingcount {
+            color: grey;
+        }
+
+        #iconConvert {
+            color: red;
         }
     </style>
 </head>
@@ -108,7 +116,8 @@ height: 150px;
         <div id="header"></div>
         <div id="nav"></div>
         <div id="offer">
-          <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png" alt="offer">
+            <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png"
+                alt="offer">
         </div>
         <div id="card-container">
 
@@ -135,7 +144,7 @@ height: 150px;
                 .then((res) => {
                     return res.json()
                 }).then((result) => {
-                    console.log(result)
+                    console.log(result,"oooooooooooooooooooooooooooooooooo")
                     showData(result)
                     return result
                 }).catch((err) => {
@@ -147,6 +156,7 @@ height: 150px;
             let containerCard = document.getElementById("card-container")
 
             array.forEach((e) => {
+
                 let card = document.createElement("div")
                 let image = document.createElement("img")
                 image.src = `${e.image}`
@@ -161,7 +171,7 @@ height: 150px;
                 details.append(productName, price)
 
                 let category = document.createElement("h4")
-                 category.className = "category"
+                category.className = "category"
                 category.textContent = `${e.category}`
 
                 // <!-- rating icon star -->   
@@ -171,20 +181,31 @@ height: 150px;
                 rating.textContent = `${e.rating}`
                 let star = document.createElement("icon")
                 star.innerHTML = `<i id="starIcon"class="fa-solid fa-star"></i>`
-            //    rating count
+                //    rating count
                 let ratingcount = document.createElement("h4")
-                    ratingcount.className="ratingcount"
-                ratingcount.textContent =Math.floor(Math.random()*100)
-                
-                ratingStar.append(rating, star,  ratingcount)
+                ratingcount.className = "ratingcount"
+                ratingcount.textContent = Math.floor(Math.random() * 100)
+
+                ratingStar.append(rating, star, ratingcount)
+
+
+
 
                 //heart button 
                 let heartButton = document.createElement("div")
                 heartButton.className = "heart-button"
                 let wishlistButton = document.createElement("icon")
                 wishlistButton.innerHTML = `<i id="icon" class="fa-regular fa-heart"></i>`
+                wishlistButton.addEventListener("click", function () {
+                    wishlistButton.innerHTML = `<i id="iconConvert" class="fa-solid fa-heart"></i>`
+                    checkDataWishlist(`${baseUrl}/wishlist`, e, e.id)
+                })
+
                 let addToCartButton = document.createElement("button")
                 addToCartButton.textContent = "AddToCart"
+                addToCartButton.addEventListener("click", function () {
+                    addToCart(`${baseUrl}/addToCart`, e)
+                })
 
                 heartButton.append(wishlistButton, addToCartButton)
 
@@ -192,7 +213,70 @@ height: 150px;
                 containerCard.append(card)
             })
         }
-        getContactLensesData(`${baseUrl}/products?category=sunglasses `)
+
+        // get wishlist Data
+        function checkDataWishlist(url, obj, id) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    let checkEmailPresent = result.filter((e) => e.id == id)
+                    if (checkEmailPresent.length != 0) {
+                        alert("Product already in wishList")
+                    } else {
+                        addToWishList(url, obj)
+                        alert(" sucessfully added product in wishList")
+                        console.log(result, "dt")
+                    }
+
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+
+        // function for post data in wishList
+
+        function addToWishList(url, product) {
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(product)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("result Data", result)
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+        }
+
+        // product added in add to cart
+        function addToCart(url, productData) {
+            console.log(productData.id, "checkid")
+
+            const productId = productData.id
+            productData = { ...productData, productId }
+            delete productData.id
+            // console.log("prodId", productData)
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(productData)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("addToCartData", result)
+                alert("sucessfully added data in cart")
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+
+        }
+        getContactLensesData(`${baseUrl}/products?category=sunglasses`)
 
     </script>
 
