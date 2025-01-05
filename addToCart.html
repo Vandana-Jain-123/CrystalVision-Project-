@@ -167,6 +167,7 @@
         <div>
 
         </div>
+        <h3 id="noProdInCart"></h3>
         <div id="addToCart">
             <div id="card-container">
 
@@ -184,7 +185,8 @@
 
     <script type="module">
         import { baseUrl } from "./script/baseUrl.js"
-        console.log(baseUrl, "url")
+        import {getDataFromApi, postData, patchData, putApi, deleteMethod} from './script/api.js'
+        console.log(baseUrl, "url", 'postData', postData)
 
         function getAddToCartData(url) {
             fetch(url)
@@ -199,9 +201,22 @@
                     console.log("error", err)
                 })
 
+                // getDataFromApi(url).then((result)=>{
+                //     const uniqueData = checkRepeatedProduct(result)
+                //     showData(uniqueData)
+                //     console.log("check add to cart ", result)
+                //   return result 
+                // })
+
         }
 
         function showData(array) {
+            const noProdInCart = document.getElementById('noProdInCart')
+            if(array?.length===0){
+                noProdInCart.innerText='no products in cart'
+            }else{
+                noProdInCart.innerText=''
+            }
             let containerCard = document.getElementById("card-container")
             containerCard.innerHTML = ""
             let billCard = document.getElementById("buyNow")
@@ -211,7 +226,6 @@
                 let card = document.createElement("div")
                 let image = document.createElement("img")
                 image.src = `${e.image}`
-                console.log(image, "img")
                 // <!-- name price -->
                 let details = document.createElement("div");
                 details.className = "card-details";
@@ -234,6 +248,7 @@
                 repeatProduct.textContent = "Repeat"
                 repeatProduct.addEventListener("click", function () {
                     //  addToCart(`${baseUrl}/addToCart`,e)
+                    debugger;
                     editData(`${baseUrl}/addToCart`, { count: e.count + 1 }, e.id)
                     // editData(url, proData, id)
 
@@ -242,11 +257,20 @@
                 let deleteAddToCart = document.createElement("button")
                 deleteAddToCart.textContent = "Remove"
                 deleteAddToCart.addEventListener("click", function () {
-                    deleteCartData(`${baseUrl}/addToCart`, e.id)
+                    // deleteCartData(`${baseUrl}/addToCart`, e.id)
+                    if((e.count - 1)===0){
+                        deleteMethod(`${baseUrl}/addToCart`, e.id).then((result)=>{
+                        getAddToCartData(`${baseUrl}/addToCart`)
+                            return result
+                        }).catch((err)=>{
+                            console.error('error in delete method', error)
+                            return
+                        })
+                    }else{
+                        editData(`${baseUrl}/addToCart`, { count: e.count - 1 }, e.id)
+                    }
                 })
-
-                console.log(e.price, "per product")
-                sum = sum + e.price
+                sum = e.count>0 ? sum + e.price * e.count :  sum + e.price
 
                 let spanText = document.createElement("span")
                 spanText.textContent = `${e.count}`
@@ -313,10 +337,12 @@
         // check repeted product funtion 
 
         function checkRepeatedProduct(productArray) {
+            console.log("productArray", productArray);
+
             let obj = {}
             for (let i = 0; i < productArray.length; i++) {
                 if (obj[productArray[i].productId] == undefined) {
-                    obj[productArray[i].productId] = { ...productArray[i], count: 1 }
+                    obj[productArray[i].productId] = { ...productArray[i], count: productArray[i]?.count ? productArray[i]?.count : 1 }
                 } else {
                     console.log("id", obj[productArray[i].productId], "productArray[i]", productArray[i])
                     obj[productArray[i].productId].count++
@@ -362,9 +388,11 @@
             }).then((res) => {
                 return res.json()
             }).then((result) => {
+                getAddToCartData(`${baseUrl}/addToCart`)
+                alert('product removed from cart sucessfully')
                 return result
             }).catch((err) => {
-                console.log("error")
+                console.log("error in remove product from cart", e)
             })
 
 
