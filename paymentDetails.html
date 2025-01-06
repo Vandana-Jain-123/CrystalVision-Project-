@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+
+    </title>
+    <meta name="description" content="">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/headerFooter.css">
+    <style>
+        /* body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        } */
+
+        .payment-container {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-top: 100px;
+            /* height: 300px; */
+            border-radius: 8px;
+            margin: auto;
+         
+            margin-bottom: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .dropdown {
+            margin-bottom: 20px;
+        }
+
+        .dropdown option {
+            color: white;
+            background-color: rgb(12, 138, 138);
+            padding: 10px;
+        }
+
+        .dropdown select {
+            width: 100%;
+            padding: 10px;
+            color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgb(12, 138, 138);
+        }
+
+        .form-section {
+            display: none;
+
+            margin-top: 20px;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-section input {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+                      
+ 
+        }
+
+        .pay-button {
+            background-color: rgb(12, 138, 138);
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background-color: rgb(167, 243, 243);
+            
+        }
+
+
+        /*  */
+
+
+        #offer {
+            height: 50px;
+            margin-top: 20px;
+            /* border: 1px solid green; */
+            margin-bottom: 20px;
+        }
+
+        #offer img {
+            width: 100%;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="offer">
+            <!-- <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png"
+                alt="offer"> -->
+        </div>
+
+
+        <div class="payment-container">
+            <h2>Payment Form</h2>
+            <div class="dropdown">
+                <select id="paymentMethod">
+                    <option value="">Select Payment Method</option>
+                    <option value="debit">Credit/Debit Card</option>
+                    <option value="netbanking">Net Banking</option>
+                    <option value="upi">UPI</option>
+                </select>
+            </div>
+            <!-- Debit/Credit Card Section -->
+            <div class="form-section" id="debitSection">
+                <input type="text" placeholder="Card Number" />
+                <input type="text" placeholder="MM/YY" />
+                <input type="text" placeholder="CVV" />
+                <input type="text" placeholder="Full Name" />
+            </div>
+            <!-- Net Banking Section -->
+            <div class="form-section" id="netbankingSection">
+                <input type="text" placeholder="Bank Name" />
+                <input type="text" placeholder="Account Number" />
+                <input type="password" placeholder="Password" />
+            </div>
+            <!-- UPI Section -->
+            <div class="form-section" id="upiSection">
+                <input type="text" placeholder="UPI ID (e.g., abc@upi)" />
+            </div>
+            <button class="pay-button">Pay Now</button>
+        </div>
+        <div id="footer"></div>
+
+
+
+
+    </div>
+
+ <script type="module">
+    import { baseUrl } from "./script/baseUrl.js"
+    console.log(baseUrl, "url")
+
+    const paymentMethod = document.getElementById("paymentMethod");
+        const debitSection = document.getElementById("debitSection");
+        const netbankingSection = document.getElementById("netbankingSection");
+        const upiSection = document.getElementById("upiSection");
+
+        paymentMethod.addEventListener("change", function () {
+            debitSection.classList.remove("active");
+            netbankingSection.classList.remove("active");
+            upiSection.classList.remove("active");
+
+            const selected = paymentMethod.value;
+            if (selected === "debit") {
+                debitSection.classList.add("active");
+            } else if (selected === "netbanking") {
+                netbankingSection.classList.add("active");
+            } else if (selected === "upi") {
+                upiSection.classList.add("active");
+            }
+        });
+
+        const button = document.querySelector(".pay-button");
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            const confirmPayment = confirm("Please confirm to proceed with the payment.");
+            if (confirmPayment) {
+                alert("Thanks for shopping with us!");
+             
+                window.location.href = `index.html`
+            }
+          
+        });
+
+</script>
+
+
+    <script src="./script/header.js"></script>
+    <script src="./script/footer.js"></script>
+
+</body>
+
+</html>

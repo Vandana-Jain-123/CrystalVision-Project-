@@ -36,6 +36,7 @@
         #card-container>div {
             width: 275px;
             height: 370px;
+            cursor: pointer;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             padding-left: 20px;
             line-height: 0.1;
@@ -144,23 +145,36 @@
                 .then((res) => {
                     return res.json()
                 }).then((result) => {
-                    console.log(result,"oooooooooooooooooooooooooooooooooo")
+                    console.log(result, "ooooooooo")
                     showData(result)
                     return result
                 }).catch((err) => {
                     console.log("error", err)
                 })
         }
-
+        // let singleProduct = JSON.parse(localStorage.getItem("singleProduct")) || []
         function showData(array) {
             let containerCard = document.getElementById("card-container")
 
             array.forEach((e) => {
 
                 let card = document.createElement("div")
+
                 let image = document.createElement("img")
                 image.src = `${e.image}`
                 console.log(image, "img")
+                image.addEventListener("click", function (event) {
+                    event.preventDefault()
+                    // addToSingle(`${baseUrl}/productData`, e)
+                    // getToSingle(`${baseUrl}/productData`, e)
+                    console.log("1 product", e)
+                    // getSinglePro(`${baseUrl}/productData`)
+
+
+                    localStorage.setItem("singleProduct", JSON.stringify(e))
+
+window.location.href=`singleProduct.html`
+                })
                 // <!-- name price -->
                 let details = document.createElement("div");
                 details.className = "card-details";
@@ -251,8 +265,53 @@
             })
 
         }
+        //  get single user data 
 
-        // product added in add to cart
+
+        // function getToSingle(url, obj, id) {
+        //     fetch(url)
+        //         .then((res) => {
+        //             return res.json()
+        //         }).then((result) => {
+        //             let checkEmailPresent = result.filter((e) => e.id == id)
+        //             if (checkEmailPresent.length != 0) {
+        //                 alert("Product already in poductList")
+        //             } else {
+        //                 addToSingle(url, obj, id)
+        //                 alert(" sucessfully added product in single product")
+        //                 console.log(result, "dt")
+        //             }
+
+        //         }).catch((err) => {
+        //             console.log("error", err)
+        //         })
+        // }
+
+        // function for post data in singleProduct
+
+       
+
+        function addToSingle(url, product) {
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(product)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("result Data", result)
+                // window.location.href = `singleProduct.html`
+
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+        }
+
+
+        // 
+
         function addToCart(url, productData) {
             console.log(productData.id, "checkid")
 

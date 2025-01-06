@@ -31,6 +31,7 @@
             display: flex;
             margin-bottom: 20px;
 
+
         }
 
         #buyNow {
@@ -54,6 +55,7 @@
             font-size: 20px;
             padding: 15px;
             border-radius: 20px;
+            cursor: pointer;
             margin-top: 50px;
             background-color: rgb(12, 138, 138);
 
@@ -201,95 +203,105 @@
 
         }
 
-        function showData(array) {
-            let containerCard = document.getElementById("card-container")
-            containerCard.innerHTML = ""
-            let billCard = document.getElementById("buyNow")
-            billCard.innerHTML = ""
-            let sum = 0
-            array.forEach((e) => {
-                let card = document.createElement("div")
-                let image = document.createElement("img")
-                image.src = `${e.image}`
-                console.log(image, "img")
-                // <!-- name price -->
-                let details = document.createElement("div");
-                details.className = "card-details";
-                let productName = document.createElement("h3")
-                productName.textContent = `${e.productName}`
-                let price = document.createElement("h3")
-                price.textContent = ` $ ${e.price}`
+    function showData(array) {
+        const containerCard = document.getElementById("card-container");
+        containerCard.innerHTML = "";
+        const billCard = document.getElementById("buyNow");
+        billCard.innerHTML = "";
 
-                let category = document.createElement("h4")
-                category.className = "category"
-                category.textContent = `${e.category}`
+        let totalSum = 0;
 
-                // <!-- name price -->
+        array.forEach((product) => {
+            const card = document.createElement("div");
 
-                //heart button 
-                let heartButton = document.createElement("div")
-                heartButton.className = "heart-button"
+            const image = document.createElement("img");
+            image.src = product.image;
 
-                let repeatProduct = document.createElement("button")
-                repeatProduct.textContent = "Repeat"
-                repeatProduct.addEventListener("click", function () {
-                    //  addToCart(`${baseUrl}/addToCart`,e)
-                    editData(`${baseUrl}/addToCart`, { count: e.count + 1 }, e.id)
-                    // editData(url, proData, id)
+            const details = document.createElement("div");
+            details.className = "card-details";
 
-                })
+            const productName = document.createElement("h3");
+            productName.textContent = product.productName;
 
-                let deleteAddToCart = document.createElement("button")
-                deleteAddToCart.textContent = "Remove"
-                deleteAddToCart.addEventListener("click", function () {
-                    deleteCartData(`${baseUrl}/addToCart`, e.id)
-                })
+            const price = document.createElement("h3");
+            price.textContent = ` $ ${product.price}`;
 
-                console.log(e.price, "per product")
-                sum = sum + e.price
+            const category = document.createElement("h4");
+            category.className = "category";
+            category.textContent = product.category;
 
-                let spanText = document.createElement("span")
-                spanText.textContent = `${e.count}`
+            const heartButton = document.createElement("div");
+            heartButton.className = "heart-button";
 
-                heartButton.append(deleteAddToCart, spanText, repeatProduct)
-                details.append(category, productName, price, heartButton)
-                card.append(image, details)
+            const repeatProductButton = document.createElement("button");
+            repeatProductButton.textContent = "Repeat";
 
-                // let cartCount = document.createElement("h1")
-                // cartCount.textContent = `  Cart()`
-                containerCard.append(card)
-            })
+            const spanCount = document.createElement("span");
+            spanCount.textContent = `Item: ${product.count}`;
 
-            let buyNowCard = document.createElement("div")
-            let totalbill1 = document.createElement("div")
-            totalbill1.className = "totalbill1"
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Remove";
+            deleteButton.addEventListener("click", () => {
+                deleteCartData(`${baseUrl}/addToCart`, product.id);
+            });
 
-            let billAmount = document.createElement("p")
-            billAmount.textContent = `Total Item Price :  $ ${sum}`
+            totalSum += product.price * product.count;
 
-            let billDiscount = document.createElement("p")
-            billDiscount.textContent = "Discount Price"
+            // Repeat button logic
+            repeatProductButton.addEventListener("click", () => {
+                const newCount = product.count + 1;
 
-            let billPayble = document.createElement("h4")
-            billPayble.textContent = "Payble Price : "
+                editData(`${baseUrl}/addToCart`, { count: newCount }, product.id).then(() => {
+                    product.count = newCount;
+                    spanCount.textContent = `Item: ${product.count}`;
 
-            let dotted = document.createElement("hr")
-            let dotteds = document.createElement("hr")
-            totalbill1.append(billAmount, dotted, billDiscount, dotteds, billPayble)
+                    totalSum += product.price;
+                    billAmount.textContent = `Total Item Price: $${totalSum}`;
+                    const discount = (totalSum * 7) / 100;
+                    const discountedPrice = totalSum - discount;
+                    billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
+                    billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
+                });
+            });
 
-            let proceedToPay = document.createElement("button")
-            proceedToPay.textContent = "Proceed To Checkout  >"
-            proceedToPay.addEventListener("click", function () {
+            heartButton.append(deleteButton, spanCount, repeatProductButton);
+            details.append(category, productName, price, heartButton);
+            card.append(image, details);
+            containerCard.append(card);
+        });
 
-            })
+        const buyNowCard = document.createElement("div");
+        const totalBill = document.createElement("div");
+        totalBill.className = "totalbill1";
 
-            buyNowCard.append(totalbill1, proceedToPay)
+        const billAmount = document.createElement("p");
+        billAmount.textContent = `Total Item Price: $${totalSum}`;
 
-            billCard.append(buyNowCard)
+        const discount = (totalSum * 7) / 100;
+        const discountedPrice = totalSum - discount;
 
-        }
+        const billDiscount = document.createElement("p");
+        billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
+
+        const billPayable = document.createElement("h3");
+        billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
+
+        const dottedLine = document.createElement("hr");
+
+        totalBill.append(billAmount, dottedLine, billDiscount, dottedLine, billPayable);
+
+        const checkoutButton = document.createElement("button");
+        checkoutButton.textContent = "Proceed To Checkout >";
+        checkoutButton.addEventListener("click", () => {
+            window.location.href = "shippingaAddress.html";
+        });
+
+        buyNowCard.append(totalBill, checkoutButton);
+        billCard.append(buyNowCard);
+    }
 
 
+    
         // function for remove card
 
         function deleteCartData(url, id) {
@@ -310,7 +322,7 @@
         }
 
 
-        // check repeted product funtion 
+        // check repeted product function 
 
         function checkRepeatedProduct(productArray) {
             let obj = {}
@@ -326,7 +338,7 @@
             console.log(obj, "final result", Object.values(obj))
             return Object.values(obj)
         }
-        // post data in add to cart after click  button on repeat 
+       
 
         function addToCart(url, productData) {
             console.log(productData.id, "checkid")
@@ -334,7 +346,7 @@
             const productId = productData.id
             productData = { ...productData, productId }
             delete productData.id
-            // console.log("prodId", productData)
+           
             fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -343,7 +355,7 @@
                 return res.json()
             }).then((result) => {
                 console.log("addToCartData", result)
-                // getAddToCartData(url)
+               
                 alert("sucessfully added data in cart")
                 return result
             }).catch((err) => {
@@ -355,20 +367,18 @@
 
         // function editData
         function editData(url, proData, id) {
-            fetch(`${url}/${id}`, {
-                method: "PATCH",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(proData)
-            }).then((res) => {
-                return res.json()
-            }).then((result) => {
-                return result
-            }).catch((err) => {
-                console.log("error")
-            })
+                return fetch(`${url}/${id}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(proData),
+                })
+                    .then((res) => res.json())
+                    .catch((err) => {
+                        console.error("Error updating data:", err);
+                    });
+            }
 
 
-        }
 
 
         getAddToCartData(`${baseUrl}/addToCart`)
@@ -380,3 +390,8 @@
 </body>
 
 </html>
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+

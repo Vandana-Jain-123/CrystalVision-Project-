@@ -38,7 +38,7 @@ function checkData(url, obj, email) {
             if (checkEmailPresent.length != 0) {
                 alert("User already register")
                 form.reset()
-                window.location.href = `login.html`
+                
             } else {
 
                 postUserData(url, obj)
@@ -46,6 +46,7 @@ function checkData(url, obj, email) {
 
                 alert("Signup sucessfully")
                 form.reset()
+                window.location.href = `login.html`
                
             }
 

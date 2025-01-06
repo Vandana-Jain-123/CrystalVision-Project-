@@ -5,16 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Form</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style/headerFooter.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-        }
+       
 
-        .container {
+        .containers {
+             font-family: Arial, sans-serif;
             display: flex;
             justify-content: space-evenly;
             padding: 20px;
@@ -22,8 +18,8 @@
 
         .form-section {
             width: 40%;
-
-            background: #fff;
+            background-color: rgb(199, 230, 230);
+            /* background: #fff; */
             padding: 50px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -34,7 +30,7 @@
             height: 400px;
             background: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -77,6 +73,7 @@
 
         .total-payable {
             font-weight: bold;
+       
         }
 
         button {
@@ -103,11 +100,37 @@
         a:hover {
             text-decoration: underline;
         }
+   #checkbox {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    gap: 10px; 
+}
+
+#checkbox input {
+    margin: 0;
+    width: auto; 
+}
+.payble{
+    background-color: lightgray;
+    padding: 25px;
+    border-radius: 10px;
+}
+
     </style>
 </head>
 
 <body>
-    <div class="container">
+
+<div class="container">
+    <div id="header"></div>
+    <div id="nav"></div>
+    <div id="offer">
+        <!-- <img src="https://static1.lenskart.com/media/desktop/img/24h/dec/eyeconic/web%20plp/Home-harmony-desktop-extra500-plp%20(5).png"
+            alt="offer"> -->
+    </div>
+   
+    <div class="containers">
         <div class="form-section">
             <h2>Save address</h2>
             <form action="#" method="post" id="form">
@@ -165,15 +188,28 @@
             </form>
         </div>
         <div class="bill-details">
-           
-            <p class="total-payable">Total payable: ₹11264</p>
+            <div id="bill"></div>
+    
+            <label id="checkbox">
+    
+                <input type="checkbox" required>By continuing, I agree to the <a href="#">Terms of use</a>
+            </label>
             <label>
-                <input type="checkbox" required> By continuing, I agree to the <a href="#">Terms of use</a> & <a
-                    href="#">Privacy Policy</a>.
+                <a href="#">Privacy Policy</a>.
             </label>
             <button id="proceedToPay">Proceed To Payment</button>
         </div>
     </div>
+    <div id="footer"></div>
+
+</div>
+
+
+    
+
+
+
+
 </body>
 
 <script type="module">
@@ -220,14 +256,14 @@
             .then((res) => {
                 return res.json()
             }).then((result) => {
-                console.log(result,"alldata")
+                console.log(result, "alldata")
                 return result
             }).catch((err) => {
                 console.log(err, "error")
             })
 
     }
-// get cart data
+    // get cart data
     function getCartData(url) {
         fetch(url)
             .then((res) => {
@@ -242,30 +278,32 @@
             })
 
     }
-    function displaytotalPrice(arr){
-        let bilDetils=document.getElementsByClassName("bill-details") 
-
-        arr.forEach((e)=>{
-          let totalprice=document.createElement("h3")
-          totalprice.textContent=e.price
-
-
-console.log(totalprice,"hjhjhjhhh")
-          
-            // let discount = document.createElement("h2")
-
-            // discount.append(totalprice)
-
-            
-            // let payableAmount= document.createElement("h2")
-
-            // payableAmount.append(totalprice)
-              bilDetils.append(totalprice)
-
+    function displaytotalPrice(arr) {
+        let billDetails = document.getElementsByClassName("bill-details");
+        let sum = 0;
+        arr.forEach((e) => {
+            sum += e.price;
+        });
+        let btn = document.getElementById("proceedToPay")
+        btn.addEventListener("click",function(){
+            window.location.href=`paymentDetails.html`
         })
-      
+        let billdata = document.getElementById("bill")
 
+        let billAmount = document.createElement("p")
+        billAmount.textContent = `Total Item Price :  $ ${sum}`
+
+        let billDiscount = document.createElement("p")
+        billDiscount.textContent = `Discount by 7% Price: - $ ${(sum * (7 / 100)).toFixed(2)}`
+
+        let PayablePrice = document.createElement("h3");
+        PayablePrice.className="payble"
+        PayablePrice.textContent = `Payable Price: $${(sum - sum * (7 / 100)).toFixed(2)}`;
+        billdata.append(billAmount,billDiscount,PayablePrice)
+        billDetails.appendChild(billdata, btn);
     }
+
+    getCartData(`${baseUrl}/addToCart`)
     // function for post customer details  data in json server 
 
     function postCustomerData(url, data) {
@@ -276,19 +314,21 @@ console.log(totalprice,"hjhjhjhhh")
         }).then((res) => {
             return res.json()
         }).then((result) => {
-               console.log(result,"data add")
-               getCustomerDetails(url)
+            console.log(result, "data add")
+            getCustomerDetails(url)
             alert(" customer details save successfully")
-            window.location.href=`paymentDetails.html`
-         
+            window.location.href = `paymentDetails.html`
+
             return result
         }).catch((err) => {
             console.log(err, "error")
         })
     }
 
-getCustomerDetails(`${baseUrl}/customerDetails`)
+    getCustomerDetails(`${baseUrl}/customerDetails`)
 
 </script>
+// <script src="./script/header.js"></script>
+<script src="./script/footer.js"></script>
 
 </html>

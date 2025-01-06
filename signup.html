@@ -58,6 +58,14 @@
             color: white;
             border: none;
             font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        #loginLink  {
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            margin-left: 200px;
         }
     </style>
 </head>
@@ -79,8 +87,9 @@
                 <option>Male</option>
                 <option>Female</option>
             </select>
-            <button id="submitBtn">submit</button>
+            <button id="submitBtn">submit</button><br>
             <!-- <input  type="submit" value="submit"> -->
+            <a id="loginLink" href="login.html">Login Here...</a>
         </form>
 
         <div id="footer"></div>
@@ -88,76 +97,76 @@
     </div>
 
     <script type="module" src="./script/signUp.js">
-// import {baseUrl} from "./script/baseUrl.js"
-//         console.log(baseUrl, "urlooo")
-//         let form = document.getElementById("form")
-//         let submitButton = document.getElementById("submitBtn")
-//         submitButton.addEventListener(("click"), function (event) {
-//             event.preventDefault()
-//             let name = form.username.value
-//             let email = form.email.value
-//             let password = form.password.value
-//             let contact = form.contact.value
-//             let gender = form.gender.value
-//             let userData = { name, email, password, contact, gender }
-//             console.log("user ka data", userData)
-//             checkData(`${baseUrl}/user`, userData, email)
-//         })
+        // import {baseUrl} from "./script/baseUrl.js"
+        //         console.log(baseUrl, "urlooo")
+        //         let form = document.getElementById("form")
+        //         let submitButton = document.getElementById("submitBtn")
+        //         submitButton.addEventListener(("click"), function (event) {
+        //             event.preventDefault()
+        //             let name = form.username.value
+        //             let email = form.email.value
+        //             let password = form.password.value
+        //             let contact = form.contact.value
+        //             let gender = form.gender.value
+        //             let userData = { name, email, password, contact, gender }
+        //             console.log("user ka data", userData)
+        //             checkData(`${baseUrl}/user`, userData, email)
+        //         })
 
-//         getData(`${baseUrl}/user`)
+        //         getData(`${baseUrl}/user`)
 
-//         function getData(url) {
-//             fetch(url)
-//                 .then((res) => {
-//                     return res.json()
-//                 }).then((result) => {
-//                     console.log(result, "datatat")
-//                     return result
-//                 }).catch((err) => {
-//                     console.log("error", err)
-//                 })
-//         }
+        //         function getData(url) {
+        //             fetch(url)
+        //                 .then((res) => {
+        //                     return res.json()
+        //                 }).then((result) => {
+        //                     console.log(result, "datatat")
+        //                     return result
+        //                 }).catch((err) => {
+        //                     console.log("error", err)
+        //                 })
+        //         }
 
-//         // function for checkData  from json server
-//         function checkData(url, obj, email) {
-//             fetch(url)
-//                 .then((res) => {
-//                     return res.json()
-//                 }).then((result) => {
-//                     let checkEmailPresent = result.filter((e) => e.email == email)
-//                     if (checkEmailPresent.length != 0) {
-//                         alert("User already register")
-//                         form.reset()
-//                         window.location.href = `login.html`
-//                     } else {
-//                         postUserData(url, obj)
-//                         alert("Signup sucessfully")
-//                         form.reset()
-//                         console.log(result, "dt")
-//                     }
+        //         // function for checkData  from json server
+        //         function checkData(url, obj, email) {
+        //             fetch(url)
+        //                 .then((res) => {
+        //                     return res.json()
+        //                 }).then((result) => {
+        //                     let checkEmailPresent = result.filter((e) => e.email == email)
+        //                     if (checkEmailPresent.length != 0) {
+        //                         alert("User already register")
+        //                         form.reset()
+        //                         window.location.href = `login.html`
+        //                     } else {
+        //                         postUserData(url, obj)
+        //                         alert("Signup sucessfully")
+        //                         form.reset()
+        //                         console.log(result, "dt")
+        //                     }
 
-//                 }).catch((err) => {
-//                     console.log("error", err)
-//                 })
-//         }
+        //                 }).catch((err) => {
+        //                     console.log("error", err)
+        //                 })
+        //         }
 
-//         // // function for post data in json Server
+        //         // // function for post data in json Server
 
-//         function postUserData(url, userObj) {
-//             fetch(url, {
-//                 method: "POST",
-//                 headers: { "Content-Type": "application/json" },
-//                 body: JSON.stringify(userObj)
-//             }).then((res) => {
-//                 return res.json()
-//             }).then((result) => {
-//                 console.log("result Data", result)
-//                 return result
-//             }).catch((err) => {
-//                 console.log("error", err)
-//             })
+        //         function postUserData(url, userObj) {
+        //             fetch(url, {
+        //                 method: "POST",
+        //                 headers: { "Content-Type": "application/json" },
+        //                 body: JSON.stringify(userObj)
+        //             }).then((res) => {
+        //                 return res.json()
+        //             }).then((result) => {
+        //                 console.log("result Data", result)
+        //                 return result
+        //             }).catch((err) => {
+        //                 console.log("error", err)
+        //             })
 
-//         }
+        //         }
     </script>
     <script src="./script/header.js"></script>
     <script src="./script/footer.js"></script>
