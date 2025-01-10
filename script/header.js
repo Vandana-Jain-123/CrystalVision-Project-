@@ -12,7 +12,7 @@ let  logoPart=`
 <input id="searchProduct" type="text" placeholder="What are you looking for?.."><i id="searchIcon" class="fa-regular fa-heart"></i>
 <a href="signup.html"><button>SignUp</button></a>
 <a href="login.html"><button>Login</button></a>
-<a href="wishList.html"><i class="fa-regular fa-heart"></i></a>
+<a href="wishlist.html"><i class="fa-regular fa-heart"></i></a>
 <a href="addToCart.html"><i class="fa-solid fa-cart-shopping"></i></a>
 </div>
 
