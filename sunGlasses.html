@@ -120,6 +120,14 @@
             <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png"
                 alt="offer">
         </div>
+        <div id="sortByPrice">
+            <select id="sortByPrice">
+                <option value="">Select Price</option>
+                <option value="asc">Low</option>
+                <option value="desc">High</option>
+
+            </select>
+        </div>
         <div id="card-container">
 
         </div>
@@ -130,7 +138,40 @@
     <script type="module">
         import { baseUrl } from "./script/baseUrl.js"
         console.log(baseUrl, "url")
+        import { getDataFromApi } from "./script/api.js"
+        let search = document.getElementById("searchProduct")
 
+        console.log("search", search)
+        let searchIcon = document.getElementById("searchIcon")
+        searchIcon.addEventListener("click", function () {
+            let searchValue = search.value
+            let searchLink = ` ${baseUrl}/products?productName_like=${searchValue}`
+
+            // https://responsible-alike-secure.glitch.me/products?productName_like=Ray
+            console.log("searchValue", searchValue)
+            getDataFromApi(searchLink).then((result) => {
+                console.log("resulttt", result)
+                showData(result)
+                return result
+            })
+        })
+        console.log("search", search)
+
+// sort product High to low
+        let sortPrice = document.getElementById("sortByPrice")
+        sortPrice.addEventListener("change", function (e) {
+            const val = e.target.value
+            console.log("vallll", val)
+
+            let sortLink = `${baseUrl}/products?category=sunglasses&_sort=price&_order=${val}`
+            getDataFromApi(sortLink).then((result) => {
+                console.log("resulttt", result)
+                showData(result)
+                return result
+            })
+        })
+
+        //    search.
 
         // {
         //     "id": "14",
@@ -155,7 +196,7 @@
         // let singleProduct = JSON.parse(localStorage.getItem("singleProduct")) || []
         function showData(array) {
             let containerCard = document.getElementById("card-container")
-
+            containerCard.innerHTML = ""
             array.forEach((e) => {
 
                 let card = document.createElement("div")
@@ -165,15 +206,14 @@
                 console.log(image, "img")
                 image.addEventListener("click", function (event) {
                     event.preventDefault()
-                    // addToSingle(`${baseUrl}/productData`, e)
-                    // getToSingle(`${baseUrl}/productData`, e)
+
                     console.log("1 product", e)
-                    // getSinglePro(`${baseUrl}/productData`)
+
 
 
                     localStorage.setItem("singleProduct", JSON.stringify(e))
 
-window.location.href=`singleProduct.html`
+                    window.location.href = `singleProduct.html`
                 })
                 // <!-- name price -->
                 let details = document.createElement("div");
@@ -268,28 +308,11 @@ window.location.href=`singleProduct.html`
         //  get single user data 
 
 
-        // function getToSingle(url, obj, id) {
-        //     fetch(url)
-        //         .then((res) => {
-        //             return res.json()
-        //         }).then((result) => {
-        //             let checkEmailPresent = result.filter((e) => e.id == id)
-        //             if (checkEmailPresent.length != 0) {
-        //                 alert("Product already in poductList")
-        //             } else {
-        //                 addToSingle(url, obj, id)
-        //                 alert(" sucessfully added product in single product")
-        //                 console.log(result, "dt")
-        //             }
 
-        //         }).catch((err) => {
-        //             console.log("error", err)
-        //         })
-        // }
 
         // function for post data in singleProduct
 
-       
+
 
         function addToSingle(url, product) {
             fetch(url, {
@@ -310,7 +333,7 @@ window.location.href=`singleProduct.html`
         }
 
 
-        // 
+
 
         function addToCart(url, productData) {
             console.log(productData.id, "checkid")

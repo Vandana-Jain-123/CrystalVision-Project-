@@ -7,10 +7,19 @@
     <title>Checkout Form</title>
     <link rel="stylesheet" href="style/headerFooter.css">
     <style>
-       
+        #offer {
+            height: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #offer img {
+            width: 100%;
+            height: 150px;
+        }
 
         .containers {
-             font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: space-evenly;
             padding: 20px;
@@ -73,10 +82,10 @@
 
         .total-payable {
             font-weight: bold;
-       
+
         }
 
-        button {
+        #proceedToPay {
             background-color: rgb(12, 138, 138);
             color: #fff;
             border: none;
@@ -86,7 +95,7 @@
             font-size: 16px;
         }
 
-        button:hover {
+        #proceedToPay:hover {
             background-color: rgb(167, 243, 243);
             color: black;
         }
@@ -100,112 +109,114 @@
         a:hover {
             text-decoration: underline;
         }
-   #checkbox {
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-    gap: 10px; 
-}
 
-#checkbox input {
-    margin: 0;
-    width: auto; 
-}
-.payble{
-    background-color: lightgray;
-    padding: 25px;
-    border-radius: 10px;
-}
+        #checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
 
+        #checkbox input {
+            margin: 0;
+            width: auto;
+        }
+
+        .payble {
+            background-color: lightgray;
+            padding: 25px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div id="header"></div>
-    <div id="nav"></div>
-    <div id="offer">
-        <!-- <img src="https://static1.lenskart.com/media/desktop/img/24h/dec/eyeconic/web%20plp/Home-harmony-desktop-extra500-plp%20(5).png"
-            alt="offer"> -->
-    </div>
-   
-    <div class="containers">
-        <div class="form-section">
-            <h2>Save address</h2>
-            <form action="#" method="post" id="form">
-                <div class="form-group">
-                    <label for="first-name">First Name*</label>
-                    <input type="text" id="firstName" placeholder="First Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="last-name">Last Name*</label>
-                    <input type="text" id="lastName" placeholder="Last Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Select Gender*</label>
-                    <div class="gender-options">
-                        <label><input type="radio" name="gender" value="male" required> Male</label>
-                        <label><input type="radio" name="gender" value="female"> Female</label>
-                        <label><input type="radio" name="gender" value="prefer-not-to-say"> Prefer not to say</label>
+    <div class="container">
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="offer">
+            <h1 style="color:rgb(12, 138, 138); text-align: center;">Shipping Address</h1>
+        </div>
+
+        <div class="containers">
+            <div class="form-section">
+                <h2>Save address</h2>
+                <form action="#" method="post" id="form">
+                    <div class="form-group">
+                        <label for="first-name">First Name*</label>
+                        <input type="text" id="firstName" placeholder="First Name" required>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone*</label>
-                    <input type="tel" id="phone" placeholder="+91 7081549229" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address*</label>
-                    <input type="email" id="email" placeholder="Email Address" required>
-                </div>
-                <div class="form-group">
-                    <label for="address-line-1">Address Line 1*</label>
-                    <input type="text" id="address1" placeholder="House/Flat Number" required>
-                </div>
-                <div class="form-group">
-                    <label for="address-line-2">Address Line 2</label>
-                    <input type="text" id="address2" placeholder="Area, Street & Landmark">
-                </div>
-                <div class="form-group">
-                    <label for="pincode">Pincode*</label>
-                    <input type="text" id="pincode" placeholder="Pincode" required>
-                </div>
-                <div class="form-group">
-                    <label for="city">City/District*</label>
-                    <input type="text" id="city" placeholder="City/District" required>
-                </div>
-                <div class="form-group">
-                    <label for="state">State*</label>
-                    <select id="state" required>
-                        <option value="">Select state</option>
-                        <option value="state1">Uttar Pradesh</option>
-                        <option value="state2">Karnatka</option>
-                        <option value="state2">Madhya Pradesh</option>
-                        <option value="state2">Punjab Rajasthan </option>
-                        <!-- Add more states as needed -->
-                    </select>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="last-name">Last Name*</label>
+                        <input type="text" id="lastName" placeholder="Last Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Gender*</label>
+                        <div class="gender-options">
+                            <label><input type="radio" name="gender" value="male" required> Male</label>
+                            <label><input type="radio" name="gender" value="female"> Female</label>
+                            <label><input type="radio" name="gender" value="prefer-not-to-say"> Prefer not to
+                                say</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone*</label>
+                        <input type="tel" id="phone" placeholder="+91 7081549229" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-line-1">Address Line 1*</label>
+                        <input type="text" id="address1" placeholder="House/Flat Number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-line-2">Address Line 2</label>
+                        <input type="text" id="address2" placeholder="Area, Street & Landmark">
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pincode*</label>
+                        <input type="text" id="pincode" placeholder="Pincode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City/District*</label>
+                        <input type="text" id="city" placeholder="City/District" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State*</label>
+                        <select id="state" required>
+                            <option value="">Select state</option>
+                            <option value="state1">Uttar Pradesh</option>
+                            <option value="state2">Karnatka</option>
+                            <option value="state2">Madhya Pradesh</option>
+                            <option value="state2">Punjab Rajasthan </option>
+
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="bill-details">
+                <div id="bill"></div>
+
+                <label id="checkbox">
+
+                    <input type="checkbox" required>By continuing, I agree to the <a href="#">Terms of use</a>
+                </label>
+                <label>
+                    <a href="#">Privacy Policy</a>.
+                </label>
+                <button id="proceedToPay">Proceed To Payment</button>
+            </div>
         </div>
-        <div class="bill-details">
-            <div id="bill"></div>
-    
-            <label id="checkbox">
-    
-                <input type="checkbox" required>By continuing, I agree to the <a href="#">Terms of use</a>
-            </label>
-            <label>
-                <a href="#">Privacy Policy</a>.
-            </label>
-            <button id="proceedToPay">Proceed To Payment</button>
-        </div>
+
+        <div id="footer"></div>
+
     </div>
-    <div id="footer"></div>
-
-</div>
 
 
-    
+
 
 
 
@@ -285,8 +296,8 @@
             sum += e.price;
         });
         let btn = document.getElementById("proceedToPay")
-        btn.addEventListener("click",function(){
-            window.location.href=`paymentDetails.html`
+        btn.addEventListener("click", function () {
+            window.location.href = `verification.html`
         })
         let billdata = document.getElementById("bill")
 
@@ -297,9 +308,9 @@
         billDiscount.textContent = `Discount by 7% Price: - $ ${(sum * (7 / 100)).toFixed(2)}`
 
         let PayablePrice = document.createElement("h3");
-        PayablePrice.className="payble"
+        PayablePrice.className = "payble"
         PayablePrice.textContent = `Payable Price: $${(sum - sum * (7 / 100)).toFixed(2)}`;
-        billdata.append(billAmount,billDiscount,PayablePrice)
+        billdata.append(billAmount, billDiscount, PayablePrice)
         billDetails.appendChild(billdata, btn);
     }
 
@@ -317,7 +328,7 @@
             console.log(result, "data add")
             getCustomerDetails(url)
             alert(" customer details save successfully")
-            window.location.href = `paymentDetails.html`
+            window.location.href = `verification.html`
 
             return result
         }).catch((err) => {
@@ -328,7 +339,8 @@
     getCustomerDetails(`${baseUrl}/customerDetails`)
 
 </script>
-// <script src="./script/header.js"></script>
+//
+<script src="./script/header.js"></script>
 <script src="./script/footer.js"></script>
 
 </html>

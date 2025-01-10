@@ -219,15 +219,20 @@
                 deleteAddToCart.addEventListener("click", function () {
                     deleteCartData(`${baseUrl}/singleProduct`, e.id)
                 })
+            
+                let property = document.createElement("h4")
+                property.className = "category"
+                property.textContent = `Blue Block Screen Glasses:
+                                        Rim Square Lenskart Blu LB E13526-C1`
 
-
-                heartButton.append(buyNow, repeatProduct, deleteAddToCart)
-                details.append(ratingStar, productName, price, heartButton,)
+                heartButton.append(buyNow, repeatProduct)
+                details.append(property,category,ratingStar, productName, price, heartButton)
                 card.append(image, details)
                 containerCard.append(card)
+
             })
 
-
+ 
         }
 
         singleProduct = JSON.parse(localStorage.getItem("singleProduct"));
