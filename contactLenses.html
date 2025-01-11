@@ -17,7 +17,6 @@
         #offer {
             height: 150px;
             margin-top: 20px;
-            border: 1px solid green;
             margin-bottom: 20px;
         }
 
@@ -37,6 +36,7 @@
         #card-container>div {
             width: 275px;
             height: 370px;
+            cursor: pointer;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             padding-left: 20px;
             line-height: 0.1;
@@ -57,6 +57,7 @@
             background-color: rgb(12, 138, 138);
             color: white;
             border-radius: 20px;
+            cursor: pointer;
             border: none;
         }
 
@@ -68,7 +69,7 @@
         #starIcon {
             color: green;
             margin: 15px 10px;
-
+            cursor: pointer;
             font-size: 10px;
         }
 
@@ -104,6 +105,31 @@
         .ratingcount {
             color: grey;
         }
+
+        #iconConvert {
+            color: red;
+        }
+
+
+        #sortByPrice {
+            margin-bottom: 20px;
+
+        }
+
+        #sortByPrice option {
+            color: white;
+            background-color: rgb(12, 138, 138);
+            padding: 10px;
+        }
+
+        #sortByPrice select {
+            width: 10%;
+            padding: 10px;
+            color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgb(12, 138, 138);
+        }
     </style>
 </head>
 
@@ -115,6 +141,14 @@
             <img src="https://static1.lenskart.com/media/desktop/img/30-nov-24/Home-harmony-desktop-extra500-plp-3.png"
                 alt="offer">
         </div>
+        <div id="sortByPrice">
+            <select id="sortBy">
+                <option value="">Select Price</option>
+                <option value="asc">Low</option>
+                <option value="desc">High</option>
+
+            </select>
+        </div>
         <div id="card-container">
 
         </div>
@@ -125,8 +159,227 @@
     <script type="module">
         import { baseUrl } from "./script/baseUrl.js"
         console.log(baseUrl, "url")
+        import { getDataFromApi } from "./script/api.js"
+        let search = document.getElementById("searchProduct")
+
+        console.log("search", search)
+        let searchIcon = document.getElementById("searchIcon")
+        searchIcon.addEventListener("click", function () {
+            let searchValue = search.value
+            let searchLink = ` ${baseUrl}/products?productName_like=${searchValue}`
+
+            // https://responsible-alike-secure.glitch.me/products?productName_like=Ray
+            console.log("searchValue", searchValue)
+            getDataFromApi(searchLink).then((result) => {
+                console.log("resulttt", result)
+                showData(result)
+                return result
+            })
+        })
+        console.log("search", search)
+
+        // sort product High to low
+        let sortPrice = document.getElementById("sortByPrice")
+        sortPrice.addEventListener("change", function (e) {
+            const val = e.target.value
+            console.log("vallll", val)
+
+            let sortLink = `${baseUrl}/products?category=contact lenses&_sort=price&_order=${val}`
+            getDataFromApi(sortLink).then((result) => {
+                console.log("resulttt", result)
+                showData(result)
+                return result
+            })
+        })
+
+        //    search.
+
+        // {
+        //     "id": "14",
+        //         "productName": "Maui Jim Peahi",
+        //             "image": "https://tse1.mm.bing.net/th?id=OIP.27IBr8bzJkioNUmTXHuPQgHaHa&pid=Api",
+        //                 "price": 250,
+        //                     "rating": 4.8,
+        //                         "category": "sunglasses"
+        // }
+        function getContactLensesData(url) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    console.log(result, "ooooooooo")
+                    showData(result)
+                    return result
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+        // let singleProduct = JSON.parse(localStorage.getItem("singleProduct")) || []
+        function showData(array) {
+            let containerCard = document.getElementById("card-container")
+            containerCard.innerHTML = ""
+            array.forEach((e) => {
+
+                let card = document.createElement("div")
+
+                let image = document.createElement("img")
+                image.src = `${e.image}`
+                console.log(image, "img")
+                image.addEventListener("click", function (event) {
+                    event.preventDefault()
+
+                    console.log("1 product", e)
 
 
+
+                    localStorage.setItem("singleProduct", JSON.stringify(e))
+
+                    window.location.href = `singleProduct.html`
+                })
+                // <!-- name price -->
+                let details = document.createElement("div");
+                details.className = "card-details";
+                let productName = document.createElement("h5")
+                productName.textContent = `${e.productName}`
+                let price = document.createElement("h3")
+                price.textContent = ` $ ${e.price}`
+                details.append(productName, price)
+
+                let category = document.createElement("h4")
+                category.className = "category"
+                category.textContent = `${e.category}`
+
+                // <!-- rating icon star -->   
+                let ratingStar = document.createElement("div");
+                ratingStar.className = "card-ratingStar";
+                let rating = document.createElement("h4")
+                rating.textContent = `${e.rating}`
+                let star = document.createElement("icon")
+                star.innerHTML = `<i id="starIcon"class="fa-solid fa-star"></i>`
+                //    rating count
+                let ratingcount = document.createElement("h4")
+                ratingcount.className = "ratingcount"
+                ratingcount.textContent = Math.floor(Math.random() * 100)
+
+                ratingStar.append(rating, star, ratingcount)
+
+
+
+
+                //heart button 
+                let heartButton = document.createElement("div")
+                heartButton.className = "heart-button"
+                let wishlistButton = document.createElement("icon")
+                wishlistButton.innerHTML = `<i id="icon" class="fa-regular fa-heart"></i>`
+                wishlistButton.addEventListener("click", function () {
+                    wishlistButton.innerHTML = `<i id="iconConvert" class="fa-solid fa-heart"></i>`
+                    checkDataWishlist(`${baseUrl}/wishlist`, e, e.id)
+                })
+
+                let addToCartButton = document.createElement("button")
+                addToCartButton.textContent = "AddToCart"
+                addToCartButton.addEventListener("click", function () {
+                    addToCart(`${baseUrl}/addToCart`, e)
+                })
+
+                heartButton.append(wishlistButton, addToCartButton)
+
+                card.append(image, category, ratingStar, details, heartButton)
+                containerCard.append(card)
+            })
+        }
+
+        // get wishlist Data
+        function checkDataWishlist(url, obj, id) {
+            fetch(url)
+                .then((res) => {
+                    return res.json()
+                }).then((result) => {
+                    let checkEmailPresent = result.filter((e) => e.id == id)
+                    if (checkEmailPresent.length != 0) {
+                        alert("Product already in wishList")
+                    } else {
+                        addToWishList(url, obj)
+                        alert(" sucessfully added product in wishList")
+                        console.log(result, "dt")
+                    }
+
+                }).catch((err) => {
+                    console.log("error", err)
+                })
+        }
+
+        // function for post data in wishList
+
+        function addToWishList(url, product) {
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(product)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("result Data", result)
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+        }
+        //  get single user data 
+
+
+
+
+        // function for post data in singleProduct
+
+
+
+        function addToSingle(url, product) {
+            fetch(url, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(product)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("result Data", result)
+                // window.location.href = `singleProduct.html`
+
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+        }
+
+
+
+
+        function addToCart(url, productData) {
+            console.log(productData.id, "checkid")
+
+            const productId = productData.id
+            productData = { ...productData, productId }
+            delete productData.id
+            // console.log("prodId", productData)
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(productData)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("addToCartData", result)
+                alert("sucessfully added data in cart")
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+
+        }
+        getContactLensesData(`${baseUrl}/products?category=contact lenses`)
 
     </script>
 

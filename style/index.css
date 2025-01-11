@@ -24,14 +24,14 @@
     /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     overflow: hidden;
     position: relative;
-  
+
 
 }
 
 #container-card>div a img {
     width: 100%;
     object-fit: cover;
-    margin:0;
+    margin: 0;
     height: 100%;
 }
 
@@ -47,3 +47,37 @@
     height: 300px;
 }
 
+@media(max-width:768px) {
+    #container-card {
+        margin-top: 4%;
+        margin-left: 7%;
+        margin-right: 9%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+
+
+    }
+
+    #container-card>div {
+        width: 400px;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        height: 250px;
+        /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+        overflow: hidden;
+        position: relative;
+        margin-top: 60px;
+
+
+    }
+
+    #container-card>div a img {
+        width: 100%;
+        object-fit: cover;
+        margin: 0;
+    }
+
+        #strip-container {
+           display: none;
+        }
+}

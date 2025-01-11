@@ -203,105 +203,105 @@
 
         }
 
-    function showData(array) {
-        const containerCard = document.getElementById("card-container");
-        containerCard.innerHTML = "";
-        const billCard = document.getElementById("buyNow");
-        billCard.innerHTML = "";
+        function showData(array) {
+            const containerCard = document.getElementById("card-container");
+            containerCard.innerHTML = "";
+            const billCard = document.getElementById("buyNow");
+            billCard.innerHTML = "";
 
-        let totalSum = 0;
+            let totalSum = 0;
 
-        array.forEach((product) => {
-            const card = document.createElement("div");
+            array.forEach((product) => {
+                const card = document.createElement("div");
 
-            const image = document.createElement("img");
-            image.src = product.image;
+                const image = document.createElement("img");
+                image.src = product.image;
 
-            const details = document.createElement("div");
-            details.className = "card-details";
+                const details = document.createElement("div");
+                details.className = "card-details";
 
-            const productName = document.createElement("h3");
-            productName.textContent = product.productName;
+                const productName = document.createElement("h3");
+                productName.textContent = product.productName;
 
-            const price = document.createElement("h3");
-            price.textContent = ` $ ${product.price}`;
+                const price = document.createElement("h3");
+                price.textContent = ` $ ${product.price}`;
 
-            const category = document.createElement("h4");
-            category.className = "category";
-            category.textContent = product.category;
+                const category = document.createElement("h4");
+                category.className = "category";
+                category.textContent = product.category;
 
-            const heartButton = document.createElement("div");
-            heartButton.className = "heart-button";
+                const heartButton = document.createElement("div");
+                heartButton.className = "heart-button";
 
-            const repeatProductButton = document.createElement("button");
-            repeatProductButton.textContent = "Repeat";
+                const repeatProductButton = document.createElement("button");
+                repeatProductButton.textContent = "Repeat";
 
-            const spanCount = document.createElement("span");
-            spanCount.textContent = `Item: ${product.count}`;
+                const spanCount = document.createElement("span");
+                spanCount.textContent = `Item: ${product.count}`;
 
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Remove";
-            deleteButton.addEventListener("click", () => {
-                deleteCartData(`${baseUrl}/addToCart`, product.id);
-            });
-
-            totalSum += product.price * product.count;
-
-            // Repeat button logic
-            repeatProductButton.addEventListener("click", () => {
-                const newCount = product.count + 1;
-
-                editData(`${baseUrl}/addToCart`, { count: newCount }, product.id).then(() => {
-                    product.count = newCount;
-                    spanCount.textContent = `Item: ${product.count}`;
-
-                    totalSum += product.price;
-                    billAmount.textContent = `Total Item Price: $${totalSum}`;
-                    const discount = (totalSum * 7) / 100;
-                    const discountedPrice = totalSum - discount;
-                    billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
-                    billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Remove";
+                deleteButton.addEventListener("click", () => {
+                    deleteCartData(`${baseUrl}/addToCart`, product.id);
                 });
+
+                totalSum += product.price * product.count;
+
+                // Repeat button logic
+                repeatProductButton.addEventListener("click", () => {
+                    const newCount = product.count + 1;
+
+                    editData(`${baseUrl}/addToCart`, { count: newCount }, product.id).then(() => {
+                        product.count = newCount;
+                        spanCount.textContent = `Item: ${product.count}`;
+
+                        totalSum += product.price;
+                        billAmount.textContent = `Total Item Price: $${totalSum}`;
+                        const discount = (totalSum * 7) / 100;
+                        const discountedPrice = totalSum - discount;
+                        billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
+                        billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
+                    });
+                });
+
+                heartButton.append(deleteButton, spanCount, repeatProductButton);
+                details.append(category, productName, price, heartButton);
+                card.append(image, details);
+                containerCard.append(card);
             });
 
-            heartButton.append(deleteButton, spanCount, repeatProductButton);
-            details.append(category, productName, price, heartButton);
-            card.append(image, details);
-            containerCard.append(card);
-        });
+            const buyNowCard = document.createElement("div");
+            const totalBill = document.createElement("div");
+            totalBill.className = "totalbill1";
 
-        const buyNowCard = document.createElement("div");
-        const totalBill = document.createElement("div");
-        totalBill.className = "totalbill1";
+            const billAmount = document.createElement("p");
+            billAmount.textContent = `Total Item Price: $${totalSum}`;
 
-        const billAmount = document.createElement("p");
-        billAmount.textContent = `Total Item Price: $${totalSum}`;
+            const discount = (totalSum * 7) / 100;
+            const discountedPrice = totalSum - discount;
 
-        const discount = (totalSum * 7) / 100;
-        const discountedPrice = totalSum - discount;
+            const billDiscount = document.createElement("p");
+            billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
 
-        const billDiscount = document.createElement("p");
-        billDiscount.textContent = `Discount (7%): -$${discount.toFixed(2)}`;
+            const billPayable = document.createElement("h3");
+            billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
 
-        const billPayable = document.createElement("h3");
-        billPayable.textContent = `Payable Price: $${discountedPrice.toFixed(2)}`;
+            const dottedLine = document.createElement("hr");
 
-        const dottedLine = document.createElement("hr");
+            totalBill.append(billAmount, dottedLine, billDiscount, dottedLine, billPayable);
 
-        totalBill.append(billAmount, dottedLine, billDiscount, dottedLine, billPayable);
+            const checkoutButton = document.createElement("button");
+            checkoutButton.textContent = "Proceed To Checkout >";
+            checkoutButton.addEventListener("click", () => {
+                window.location.href = "verification.html";
+            });
 
-        const checkoutButton = document.createElement("button");
-        checkoutButton.textContent = "Proceed To Checkout >";
-        checkoutButton.addEventListener("click", () => {
-            window.location.href = "shippingaAddress.html";
-        });
-
-        buyNowCard.append(totalBill, checkoutButton);
-        billCard.append(buyNowCard);
-    }
+            buyNowCard.append(totalBill, checkoutButton);
+            billCard.append(buyNowCard);
+        }
 
 
-    
+
         // function for remove card
 
         function deleteCartData(url, id) {
@@ -338,7 +338,7 @@
             console.log(obj, "final result", Object.values(obj))
             return Object.values(obj)
         }
-       
+
 
         function addToCart(url, productData) {
             console.log(productData.id, "checkid")
@@ -346,7 +346,7 @@
             const productId = productData.id
             productData = { ...productData, productId }
             delete productData.id
-           
+
             fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -355,7 +355,7 @@
                 return res.json()
             }).then((result) => {
                 console.log("addToCartData", result)
-               
+
                 alert("sucessfully added data in cart")
                 return result
             }).catch((err) => {
@@ -367,16 +367,16 @@
 
         // function editData
         function editData(url, proData, id) {
-                return fetch(`${url}/${id}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(proData),
-                })
-                    .then((res) => res.json())
-                    .catch((err) => {
-                        console.error("Error updating data:", err);
-                    });
-            }
+            return fetch(`${url}/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(proData),
+            })
+                .then((res) => res.json())
+                .catch((err) => {
+                    console.error("Error updating data:", err);
+                });
+        }
 
 
 
@@ -394,4 +394,3 @@
 
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-

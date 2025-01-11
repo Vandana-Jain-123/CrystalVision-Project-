@@ -10,7 +10,6 @@
     </title>
     <meta name="description" content="">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style/headerFooter.css">
     <style>
@@ -125,7 +124,7 @@
 </head>
 
 <body>
-    <div id="container">
+    <div class="container">
         <div id="header"></div>
         <div id="nav"></div>
         <div>
@@ -141,134 +140,134 @@
         <div id="footer"></div>
 
 
-        </div>
+    </div>
 
-        <script type="module">
-            import { baseUrl } from "./script/baseUrl.js"
-            console.log(baseUrl, "url")
+    <script type="module">
+        import { baseUrl } from "./script/baseUrl.js"
+        console.log(baseUrl, "url")
 
-            function getToWishListData(url) {
-                fetch(url)
-                    .then((res) => {
-                        return res.json()
-                    }).then((result) => {
-                        showData(result)
-                        console.log("check add to wishlist", result)
-                        return result
-                    }).catch((err) => {
-                        console.log("error", err)
-                    })
-
-            }
-
-            function showData(array) {
-                let containerCard = document.getElementById("card-container")
-                containerCard.innerHTML = ""
-
-                array.forEach((e) => {
-                    let card = document.createElement("div")
-                    let image = document.createElement("img")
-                    image.src = `${e.image}`
-                    console.log(image, "img")
-                    // <!-- name price -->
-                    let details = document.createElement("div");
-                    details.className = "card-details";
-                    let productName = document.createElement("h3")
-                    productName.textContent = `${e.productName}`
-                    let price = document.createElement("h3")
-                    price.textContent = ` $ ${e.price}`
-
-                    let category = document.createElement("h4")
-                    category.className = "category"
-                    category.textContent = `${e.category}`
-
-                    // <!-- name price -->
-
-                    //heart button 
-                    let heartButton = document.createElement("div")
-                    heartButton.className = "heart-button"
-
-                    let repeatProduct = document.createElement("button")
-                    repeatProduct.textContent = "AddToCart"
-                    repeatProduct.addEventListener("click", function () {
-                        addToCart(`${baseUrl}/addToCart`, e)
-
-                    })
-
-                    let buyNow = document.createElement("button")
-                    buyNow.textContent = "Buy Now"
-                    buyNow.addEventListener("click", function () {
-                        addToCart(`${baseUrl}/addToCart`, e)
-
-                    })
-
-                    let deleteAddToCart = document.createElement("button")
-                    deleteAddToCart.textContent = "Remove"
-                    deleteAddToCart.addEventListener("click", function () {
-                        deleteCartData(`${baseUrl}/wishlist`, e.id)
-                    })
-
-
-                    heartButton.append(buyNow, repeatProduct, deleteAddToCart)
-                    details.append(category, productName, price, heartButton)
-                    card.append(image, details)
-
-
-                    containerCard.append(card)
-                })
-
-
-            }
-            // add data in addTo Cart or  buy now
-            function addToCart(url, productData) {
-                console.log(productData.id, "checkid")
-
-                const productId = productData.id
-                productData = { ...productData, productId }
-                delete productData.id
-                // console.log("prodId", productData)
-                fetch(url, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(productData)
-                }).then((res) => {
+        function getToWishListData(url) {
+            fetch(url)
+                .then((res) => {
                     return res.json()
                 }).then((result) => {
-                    console.log("addToCartData", result)
-                    alert("sucessfully added data in cart")
-                    window.location.href = `addToCart.html`
+                    showData(result)
+                    console.log("check add to wishlist", result)
                     return result
                 }).catch((err) => {
                     console.log("error", err)
                 })
 
+        }
 
-            }
+        function showData(array) {
+            let containerCard = document.getElementById("card-container")
+            containerCard.innerHTML = ""
 
-            // function for remove card
+            array.forEach((e) => {
+                let card = document.createElement("div")
+                let image = document.createElement("img")
+                image.src = `${e.image}`
+                console.log(image, "img")
+                // <!-- name price -->
+                let details = document.createElement("div");
+                details.className = "card-details";
+                let productName = document.createElement("h3")
+                productName.textContent = `${e.productName}`
+                let price = document.createElement("h3")
+                price.textContent = ` $ ${e.price}`
 
-            function deleteCartData(url, id) {
-                fetch(`${url}/${id}`, {
-                    method: "DELETE",
-                    headers: { "Content-Type": "application/json" }
+                let category = document.createElement("h4")
+                category.className = "category"
+                category.textContent = `${e.category}`
 
-                }).then((res) => {
-                    return res.json()
-                }).then((result) => {
-                    console.log(result, "after deleted")
-                   getToWishListData(url)
-                    return result
-                }).catch((err) => {
-                    console.log(err, "error")
+                // <!-- name price -->
+
+                //heart button 
+                let heartButton = document.createElement("div")
+                heartButton.className = "heart-button"
+
+                let repeatProduct = document.createElement("button")
+                repeatProduct.textContent = "AddToCart"
+                repeatProduct.addEventListener("click", function () {
+                    addToCart(`${baseUrl}/addToCart`, e)
+
                 })
 
-            }
+                let buyNow = document.createElement("button")
+                buyNow.textContent = "Buy Now"
+                buyNow.addEventListener("click", function () {
+                    addToCart(`${baseUrl}/addToCart`, e)
 
-           getToWishListData(`${baseUrl}/wishlist`)
-        </script>
+                })
 
-        <script src="./script/header.js"></script>
-        <script src="./script/footer.js"></script>
+                let deleteAddToCart = document.createElement("button")
+                deleteAddToCart.textContent = "Remove"
+                deleteAddToCart.addEventListener("click", function () {
+                    deleteCartData(`${baseUrl}/wishlist`, e.id)
+                })
+
+
+                heartButton.append(buyNow, repeatProduct, deleteAddToCart)
+                details.append(category, productName, price, heartButton)
+                card.append(image, details)
+
+
+                containerCard.append(card)
+            })
+
+
+        }
+        // add data in addTo Cart or  buy now
+        function addToCart(url, productData) {
+            console.log(productData.id, "checkid")
+
+            const productId = productData.id
+            productData = { ...productData, productId }
+            delete productData.id
+            // console.log("prodId", productData)
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(productData)
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log("addToCartData", result)
+                alert("sucessfully added data in cart")
+                window.location.href = `addToCart.html`
+                return result
+            }).catch((err) => {
+                console.log("error", err)
+            })
+
+
+        }
+
+        // function for remove card
+
+        function deleteCartData(url, id) {
+            fetch(`${url}/${id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" }
+
+            }).then((res) => {
+                return res.json()
+            }).then((result) => {
+                console.log(result, "after deleted")
+                getToWishListData(url)
+                return result
+            }).catch((err) => {
+                console.log(err, "error")
+            })
+
+        }
+
+        getToWishListData(`${baseUrl}/wishlist`)
+    </script>
+
+    <script src="./script/header.js"></script>
+    <script src="./script/footer.js"></script>
 
 </body>
 

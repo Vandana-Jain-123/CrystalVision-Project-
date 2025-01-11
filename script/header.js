@@ -8,25 +8,23 @@ let  logoPart=`
 </a>
 </div>
 
-<div id="search" >
-<input id="searchProduct" type="text" placeholder="What are you looking for?.."><i id="searchIcon" class="fa-regular fa-heart"></i>
+<div id="search">
+<input id="searchProduct" type="text" placeholder="What are you looking for?.."><i id="searchIcon" class="fa-solid fa-magnifying-glass"></i>
 <a href="signup.html"><button>SignUp</button></a>
 <a href="login.html"><button>Login</button></a>
 <a href="wishlist.html"><i class="fa-regular fa-heart"></i></a>
 <a href="addToCart.html"><i class="fa-solid fa-cart-shopping"></i></a>
 </div>
-
-
 `    
   
 let navbar=`
+ <input type="checkbox" id="click">
+            <label for="click" class="menu-btn"><i class="fa-solid fa-bars"></i></label>
             <a href="sunGlasses.html">SunGlasses </a>
             <a href="contactLenses.html">Contact Lenses</a>
+             <a href="kidsGlasses.html">Kids Glasses</a> 
             <a href="eyeGlasses.html">EyeGlasses</a>
-            <a href="screenGlasses.html">Screen Glasses</a>
-            <a href="kidsGlasses.html">Kids Glasses</a>
-           
-           
+                     
 `
 document.getElementById("header").innerHTML = logoPart
 document.getElementById("nav").innerHTML=navbar

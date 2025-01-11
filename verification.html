@@ -4,145 +4,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrystalVision Checkout</title>
+    <title>Checkout Form</title>
+    <link rel="stylesheet" href="style/headerFooter.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
-            color: #333;
+        #offer {
+            height: 50px;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        #offer img {
+            width: 100%;
+            height: 150px;
+        }
+
+        .containers {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: space-evenly;
             padding: 20px;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header img {
-            height: 40px;
-        }
-
-        .header h2 {
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .form-group input {
-            width: calc(100% - 20px);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .buttons .login {
-            background-color: #001e6c;
-            color: #fff;
-        }
-
-        .buttons .guest {
-            background-color: #f0f0f0;
-            color: #333;
-            border: 1px solid #ccc;
+        .form-section {
+            width: 20%;
+            background-color: rgb(199, 230, 230);
+            /* background: #fff; */
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .bill-details {
-            margin-top: 30px;
+            width: 30%;
+            height: 400px;
+            background: #fff;
             padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            font-size: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .bill-details h3 {
-            margin-bottom: 10px;
+        h2 {
+            margin-bottom: 20px;
         }
 
-        .bill-details .item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .form-group {
+            margin-bottom: 15px;
         }
 
-        .total {
+        label {
+            display: block;
+            margin-bottom: 5px;
             font-weight: bold;
-            font-size: 1.2rem;
         }
 
-        .discount {
-            color: green;
+        input,
+        select,
+        button {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            width: auto;
+        }
+
+        .gender-options label {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .bill-details p {
+            margin: 10px 0;
+        }
+
+        .total-payable {
+            font-weight: bold;
+
+        }
+
+        #proceedToPay {
+            background-color: rgb(12, 138, 138);
+            color: #fff;
+            border: none;
+            margin-top: 100px;
+            cursor: pointer;
+            padding: 12px;
+            font-size: 16px;
+        }
+         #form button {
+            margin-top: 10px;
+            width: 200px;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            background-color: rgb(12, 138, 138);
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+
+        #proceedToPay:hover {
+            background-color: rgb(167, 243, 243);
+            color: black;
+        }
+
+        a {
+            color: rgb(12, 138, 138);
+            text-decoration: none;
+
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
+
+        #checkbox input {
+            margin: 0;
+            width: auto;
+        }
+
+        .payble {
+            background-color: lightgray;
+            padding: 25px;
+            border-radius: 10px;
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <div class="header">
-            <img src="https://static.lenskart.com/images/logo.png" alt="Lenskart Logo">
-            <h2>Enter your mobile number</h2>
+        <div id="header"></div>
+        <div id="nav"></div>
+        <div id="offer">
+            <h1 style="color:rgb(12, 138, 138); text-align: center;">Verification </h1>
         </div>
 
-        <form>
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="text" id="phone" name="phone" placeholder="+91">
-            </div>
-            <div class="buttons">
-                <button type="submit" class="login">Login</button>
-                <button type="button" class="guest">Checkout as Guest</button>
-            </div>
-        </form>
+        <div class="containers">
+            <form id="form">
+                <h2>Verify please...</h2>
+                <input id="email" type="email" placeholder="enter your email">
+                <input id="password" type="password" placeholder="enter your password" value="2897924">
 
-        <div class="bill-details">
-            <h3>Bill Details</h3>
-            <div class="item">
-                <span>Total item price</span>
-                <span>₹2000</span>
-            </div>
-            <div class="item discount">
-                <span>Total discount</span>
-                <span>- ₹500</span>
-            </div>
-            <div class="item total">
-                <span>Total payable</span>
-                <span>₹1500</span>
+                <button id="submitBtn">Login</button>
+                <button id="signUp">SignUp</button>
+                <!-- <input  type="submit" value="submit"> -->
+            </form>
+            <div class="bill-details">
+                <div id="bill"></div>
+
+                <label id="checkbox">
+
+                    <input type="checkbox" required>By continuing, I agree to the <a href="#">Terms of use</a>
+                </label>
+                <label>
+                    <a href="#">Privacy Policy</a>.
+                </label>
+                <button id="proceedToPay">Proceed To Payment</button>
             </div>
         </div>
+
+        <div id="footer"></div>
+
     </div>
+
+
+
+
+
+
+
 </body>
+
+<script type="module">
+    import { baseUrl } from "./script/baseUrl.js"
+    console.log(baseUrl, "url")
+
+
+    let form = document.getElementById("form")
+    let loginButton = document.getElementById("submitBtn")
+    loginButton.addEventListener("click", function (event) {
+        event.preventDefault()
+        let password = form.password.value
+        let email = form.email.value
+        let loginData = { password, email }
+        console.log("loginData", loginData)
+        getData(`${baseUrl}/user`, email)
+    })
+
+     let signupButton = document.getElementById("signUp")
+        signupButton.addEventListener("click", function (event) {
+            event.preventDefault()
+           form.reset()
+            window.location.href = `signup.html`
+        })
+
+
+    function getData(url, email) {
+        fetch(url)
+            .then((res) => {
+                return res.json()
+            })
+            .then((result) => {
+                let checkLogin = result.filter((e) => e.email == email)
+                if (checkLogin.length != 0) {
+                    alert("Login Sucessfully")
+                    form.reset()
+                    window.location.href = `shippingaAddress.html`
+                } else {
+                    alert("something went wrong try again......")
+                    form.reset()
+                }
+                console.log(result, "result")
+
+                return result
+            })
+            .catch((err) => {
+                alert("something went wrong try again......")
+                console.log(err, "error")
+            })
+    }
+
+
+
+
+
+
+    // get cart data
+    function getCartData(url) {
+        fetch(url)
+            .then((res) => {
+                return res.json()
+            }).then((result) => {
+                displaytotalPrice(result)
+                console.log(result, "alldata")
+
+                return result
+            }).catch((err) => {
+                console.log(err, "error")
+            })
+
+    }
+    function displaytotalPrice(arr) {
+        let billDetails = document.getElementsByClassName("bill-details");
+        let sum = 0;
+        arr.forEach((e) => {
+            sum += e.price;
+        });
+        let btn = document.getElementById("proceedToPay")
+        btn.addEventListener("click", function () {
+            window.location.href = `verification.html`
+        })
+        let billdata = document.getElementById("bill")
+
+        let billAmount = document.createElement("p")
+        billAmount.textContent = `Total Item Price :  $ ${sum}`
+
+        let billDiscount = document.createElement("p")
+        billDiscount.textContent = `Discount by 7% Price: - $ ${(sum * (7 / 100)).toFixed(2)}`
+
+        let PayablePrice = document.createElement("h3");
+        PayablePrice.className = "payble"
+        PayablePrice.textContent = `Payable Price: $${(sum - sum * (7 / 100)).toFixed(2)}`;
+        billdata.append(billAmount, billDiscount, PayablePrice)
+        billDetails.appendChild(billdata, btn);
+    }
+
+    getCartData(`${baseUrl}/addToCart`)
+    // function for post customer details  data in json server 
+
+
+
+
+
+
+</script>
+//
+<script src="./script/header.js"></script>
+<script src="./script/footer.js"></script>
 
 </html>

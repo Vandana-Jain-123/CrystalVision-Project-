@@ -16,8 +16,8 @@ const footer = () => {
      <a href="">About</a><br>
        <a href="">Contact</a><br>
          <a href="">Term & Condition</a><br>
-           <a href="">ttt</a><br>
-             <a href="">About</a>
+           <a href="">Address</a><br>
+             <a href="">Information</a>
      
 </div>
 <div id=content2>
