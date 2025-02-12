@@ -34,7 +34,7 @@ The application also includes sorting and filtering features to enhance the shop
 
 ⚡ JavaScript (ES6+) - Adding dynamic functionalities.
 
-📡 JSON Server - Simulating a real backend.
+📡 Glitch Server - Simulating a real backend.
 
 🖥️ Git & GitHub - Version control and collaboration.
 ## Glitch 
