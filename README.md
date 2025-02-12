@@ -37,6 +37,16 @@ The application also includes sorting and filtering features to enhance the shop
 📡 JSON Server - Simulating a real backend.
 
 🖥️ Git & GitHub - Version control and collaboration.
+## Glitch 
+📡 Backend JSON Server - All product data is fetched dynamically from a JSON server 
+🚀https://responsible-alike-secure.glitch.me
+
+### API Endpoints
+🌐https://responsible-alike-secure.glitch.me/products
+🌐https://responsible-alike-secure.glitch.me/user
+🌐https://responsible-alike-secure.glitch.me/addToCart
+🌐https://responsible-alike-secure.glitch.me/wishList
+🌐https://responsible-alike-secure.glitch.me/customerDetails
 
 📦 Installation
 
@@ -56,17 +66,11 @@ Open the project in a browser:
 
 🚀 Project Link:https://vandana-jain-123.github.io/CrystalVision-Project-/
 
-## Glitch 
-📡 Backend JSON Server - All product data is fetched dynamically from a JSON server 
-🚀https://responsible-alike-secure.glitch.me
-
-### API Endpoints
+.Home
+![image](https://github.com/user-attachments/assets/aecae125-7eb4-4259-9e60-22050508c633)
 
 
-
-
-
-🚀 Usage
+##🚀 Usage
 
 Visit the homepage to explore available glasses.
 
@@ -80,7 +84,7 @@ Add products to the cart and proceed to checkout.
 
 Sort products by price and filter by name for easier browsing.
 
-🤝 Contribution
+##🤝 Contribution
 
 Contributions are welcome! To contribute:
 
