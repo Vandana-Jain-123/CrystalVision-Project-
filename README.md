@@ -1,4 +1,4 @@
-🛍️ CrystalVision - E-commerce Website for Glasses
+#🛍️ CrystalVision - E-commerce Website for Glasses
 
 🚀 Overview
 
@@ -42,11 +42,11 @@ The application also includes sorting and filtering features to enhance the shop
 🚀https://responsible-alike-secure.glitch.me
 
 ### API Endpoints
-🌐https://responsible-alike-secure.glitch.me/products
-🌐https://responsible-alike-secure.glitch.me/user
-🌐https://responsible-alike-secure.glitch.me/addToCart
-🌐https://responsible-alike-secure.glitch.me/wishList
-🌐https://responsible-alike-secure.glitch.me/customerDetails
+#🌐https://responsible-alike-secure.glitch.me/products
+#🌐https://responsible-alike-secure.glitch.me/user
+#🌐https://responsible-alike-secure.glitch.me/addToCart
+#🌐https://responsible-alike-secure.glitch.me/wishList
+#🌐https://responsible-alike-secure.glitch.me/customerDetails
 
 📦 Installation
 
@@ -67,7 +67,7 @@ Open the project in a browser:
 🚀 Project Link:https://vandana-jain-123.github.io/CrystalVision-Project-/
 
 .Home
-![image](https://github.com/user-attachments/assets/aecae125-7eb4-4259-9e60-22050508c633)
+
 
 
 ##🚀 Usage
