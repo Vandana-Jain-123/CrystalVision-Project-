@@ -38,7 +38,7 @@ The application also includes sorting and filtering features to enhance the shop
 
 🖥️ Git & GitHub - Version control and collaboration.
 ## Glitch 
-📡 Backend JSON Server - All product data is fetched dynamically from a JSON server 
+📡 Backend JSON Server - All product data is fetched dynamically from a Glitch server 
 🚀https://responsible-alike-secure.glitch.me
 
 ### API Endpoints
