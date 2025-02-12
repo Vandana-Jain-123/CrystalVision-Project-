@@ -57,11 +57,8 @@ Open the project in a browser:
 🚀 Project Link:https://vandana-jain-123.github.io/CrystalVision-Project-/
 
 ## Glitch 
-[Backend API](https://your-glitch-project.glitch.me/api)
-
-
 📡 Backend JSON Server - All product data is fetched dynamically from a JSON server 
-[![Glitch Live](https://user-images.githubusercontent.com/Glitch-icon.png)](https://responsible-alike-secure.glitch.me)
+🚀https://responsible-alike-secure.glitch.me
 
 ### API Endpoints
 
